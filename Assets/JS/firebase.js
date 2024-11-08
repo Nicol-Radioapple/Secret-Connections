@@ -4,20 +4,21 @@
  import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
  import { getFirestore } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
  import { getStorage } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-storage.js";
+
  // TODO: Add SDKs for Firebase products that you want to use
  // https://firebase.google.com/docs/web/setup#available-libraries
 
  // Your web app's Firebase configuration
  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
  const firebaseConfig = {
-   apiKey: "AIzaSyASOusy6RQT6I1uvasVBfIzouD8XK13rAM",
-   authDomain: "secret-link-04.firebaseapp.com",
-   projectId: "secret-link-04",
-   storageBucket: "secret-link-04.appspot.com",
-   messagingSenderId: "1010035548216",
-   appId: "1:1010035548216:web:31ced0e6ebd056b2e706cd",
-   measurementId: "G-8W3JN8L6SK"
- };
+  apiKey: "AIzaSyDYK4FmRxMYNQRY6unRXLu4DyYWusN98J4",
+  authDomain: "secrets-links.firebaseapp.com",
+  projectId: "secrets-links",
+  storageBucket: "secrets-links.appspot.com",
+  messagingSenderId: "935721336750",
+  appId: "1:935721336750:web:e5633814d693236c95523f",
+  measurementId: "G-ZKHW1179YX"
+};
 
  // Initialize Firebase
  const app = initializeApp(firebaseConfig);

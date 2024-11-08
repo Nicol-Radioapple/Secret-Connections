@@ -3,13 +3,15 @@ import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebase
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js"
 import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js"
 import { GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js"
-import {doc, setDoc} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js"
+import { doc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js"
+import { signOut } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+
 
 
 //Eventos
 
 
-const signupForm =document.getElementById("form-signup");
+const signupForm = document.getElementById("form-signup");
 
 signupForm.addEventListener("submit", async (e) => {
     e.preventDefault()
@@ -17,22 +19,22 @@ signupForm.addEventListener("submit", async (e) => {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     const name = document.getElementById("name").value;
-   
- console.log(email, password)
+
+    console.log(email, password)
     try {
         const credentials = await createUserWithEmailAndPassword(auth, email, password);
         const user = credentials.user;
-        console.log(user.uid+" - "+email+"- "+password +"-"+name)
+        console.log(user.uid + " - " + email + "- " + password + "-" + name)
 
         const docu = doc(db, "usuarios", user.uid);
         await setDoc(docu, {
             email: email,
             password: password,
-            name:name
-           
+            name: name
+
         })
 
- console.log("halloween")
+        console.log("halloween")
         //Selecionar modal
         signupForm.reset()
         const modalSignup = document.getElementById("exampleModal")
@@ -48,7 +50,7 @@ signupForm.addEventListener("submit", async (e) => {
 
 
 
-    } catch(error){
+    } catch (error) {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(error.code)
@@ -75,12 +77,12 @@ signupForm.addEventListener("submit", async (e) => {
 //Cunado se loguee el usuario
 //async se coloca cuando no sabes cuando se va a responder 
 onAuthStateChanged(auth, async (user) => {
- 
-if(!user){ //Si la sesion esta iniciada
+
+    if (!user) { //Si la sesion esta iniciada
+
+    }
+
    
-}
-
-
 
 });
 
@@ -91,24 +93,40 @@ document.getElementById("form-signin").addEventListener("submit", async () => {
     const emailLogin = document.getElementById("email-signin").value;
     const passwordLogin = document.getElementById("password-signin").value;
 
-    console.log()
 
 
 
     try {
         const credentials = await signInWithEmailAndPassword(auth, emailLogin, passwordLogin);
         console.log("Logueado")
-        //Cerrar modal
-
-        const modalSignin = document.getElementById("modal-signin")
-        const modal = bootstrap.Modal.getInstace(modalSignin)
-        modal.hide()
+        //Cerrar modal 
+        alert("aaaa")
+        // location.href = "principal.html";
     }
     catch (error) {
         console.log(error.code)
     }
 
 })
+
+
+//Deslogueo
+
+// Agrega un event listener para el clic en el botón de cerrar sesión
+const logoutBtn= document.getElementById("logoutBtn").addEventListener('click', async () => {
+    try {
+        await signOut(auth); // `auth` es la instancia de autenticación de Firebase
+        console.log("Sesión cerrada correctamente");
+
+        // Redirige al usuario a la página de inicio o muestra un mensaje
+        location.href = "/index.html"; // Redirige a la página principal (ajusta según tu estructura)
+    } catch (error) {
+        console.error("Error al cerrar sesión:", error);
+        alert("Hubo un error al cerrar la sesión");
+    }
+});
+
+
 
 //Logueo con google
 
@@ -123,11 +141,7 @@ document.getElementById("google-boton").addEventListener("click", async (e) => {
     try {
         const credentials = await signInWithPopup(auth, provider)
 
-        //Ocultar el modal de signin
-        const modalSignin = document.getElementById("modal-signin");
-        const modal = bootstrap.Modal.getInstance(modalSignin);
-        modal.hide()
-
+        location.href = "principal.html";
 
 
     } catch (error) {
